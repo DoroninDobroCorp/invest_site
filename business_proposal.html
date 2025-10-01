@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iBet — Инвестиционное предложение</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa; color: #1a1a1a; line-height: 1.7;
+    }
+    header {
+      background: #fff; padding: 1.2rem 3rem; border-bottom: 1px solid #e0e0e0;
+      position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.6rem; font-weight: 600; color: #1a73e8; text-decoration: none; }
+    nav a { margin-left: 2rem; text-decoration: none; color: #5f6368; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+    nav a:hover { color: #1a73e8; }
+    main { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+    .hero { text-align: center; padding: 3rem 2rem; margin-bottom: 4rem; }
+    .hero h1 { font-size: 2.6rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.2; }
+    .hero .subtitle { font-size: 1.2rem; color: #5f6368; max-width: 850px; margin: 0 auto; }
+    section { margin-bottom: 5rem; }
+    h2 { font-size: 2rem; font-weight: 700; margin-bottom: 2.5rem; text-align: center; }
+    h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 1rem; }
+    .content-block { background: #fff; padding: 2.5rem; border-radius: 8px; margin-bottom: 2rem; border: 1px solid #e0e0e0; }
+    .content-block p { font-size: 1.05rem; line-height: 1.8; color: #3c4043; margin-bottom: 1rem; }
+    .content-block ul { margin: 1.5rem 0 1.5rem 1.5rem; }
+    .content-block li { font-size: 1.05rem; line-height: 1.8; color: #3c4043; margin-bottom: 0.8rem; }
+    .content-block strong { color: #1a1a1a; font-weight: 600; }
+    .market-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 2.5rem 0; }
+    .stat-card { background: #fff; padding: 2rem; border-radius: 8px; border: 1px solid #e0e0e0; text-align: center; }
+    .stat-card .number { font-size: 2.3rem; font-weight: 700; color: #1a73e8; margin-bottom: 0.5rem; }
+    .stat-card .label { font-size: 0.95rem; color: #5f6368; line-height: 1.4; }
+    .advantage-card { background: #fff; padding: 2rem; border-radius: 8px; border: 1px solid #e0e0e0; border-left: 4px solid #1a73e8; margin-bottom: 1.5rem; }
+    .advantage-card h3 { margin-bottom: 1rem; color: #1a73e8; }
+    .advantage-card p { font-size: 1.05rem; line-height: 1.7; color: #3c4043; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; }
+    .comparison-table th { background: #f1f3f4; padding: 1rem; text-align: left; font-weight: 600; border-bottom: 2px solid #e0e0e0; }
+    .comparison-table td { padding: 1rem; border-bottom: 1px solid #e0e0e0; font-size: 0.98rem; color: #3c4043; }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table .highlight { background: #e8f0fe; font-weight: 600; color: #1a73e8; }
+    .cta-section { background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%); color: white; padding: 3.5rem 2.5rem; border-radius: 12px; text-align: center; margin: 4rem 0; }
+    .cta-section h2 { color: white; font-size: 2.2rem; margin-bottom: 1.5rem; }
+    .cta-section p { font-size: 1.15rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; opacity: 0.95; }
+    .cta-button { display: inline-block; padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: 600; color: #1a73e8; background: #fff; border: none; border-radius: 6px; text-decoration: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+    form { max-width: 650px; margin: 3rem auto 0; background: #fff; padding: 2.5rem; border-radius: 8px; border: 1px solid #e0e0e0; }
+    form label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.95rem; }
+    form input, form textarea { width: 100%; padding: 0.9rem; border: 1px solid #dadce0; border-radius: 4px; font-size: 1rem; margin-bottom: 1.5rem; font-family: inherit; transition: border-color 0.2s; }
+    form input:focus, form textarea:focus { outline: none; border-color: #1a73e8; }
+    form button { width: 100%; padding: 1rem; font-size: 1.05rem; font-weight: 600; color: #fff; background: #1a73e8; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.2s; }
+    form button:hover { background: #1557b0; }
+    .contact-info { text-align: center; margin-top: 2.5rem; padding: 2rem; background: #f8f9fa; border-radius: 8px; }
+    .contact-info p { margin: 0.7rem 0; font-size: 1.05rem; color: #3c4043; }
+    footer { text-align: center; padding: 2.5rem; background: #1a1a1a; color: #e8eaed; margin-top: 5rem; }
+    .footer-links { margin-top: 1rem; }
+    .footer-links a { color: #8ab4f8; text-decoration: none; margin: 0 1rem; font-size: 0.9rem; }
+    .footer-links a:hover { text-decoration: underline; }
+    .highlight-box { background: #e8f0fe; border-left: 4px solid #1a73e8; padding: 2rem; margin: 2rem 0; border-radius: 4px; }
+    .highlight-box h3 { color: #1a73e8; margin-bottom: 1rem; }
+    .highlight-box p { font-size: 1.05rem; line-height: 1.8; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="#" class="logo">iBet</a>
+      <nav>
+        <a href="#market">Рынок</a>
+        <a href="#advantages">Преимущества</a>
+        <a href="#model">Бизнес-модель</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Партнерское предложение: букмекерская платформа нового поколения</h1>
+      <p class="subtitle">
+        Инвестиционная возможность в быстрорастущем сегменте онлайн-беттинга с технологическими преимуществами и проверенной бизнес-моделью
+      </p>
+    </section>
+
+    <section id="market">
+      <h2>Анализ рынка и потенциал</h2>
+      
+      <div class="market-stats">
+        <div class="stat-card">
+          <div class="number">$83B</div>
+          <div class="label">Объем мирового рынка онлайн-беттинга (2024)</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">11.7%</div>
+          <div class="label">CAGR роста рынка до 2030 года</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">$5.3B</div>
+          <div class="label">Выручка Bet365 (2023)</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">15 лет</div>
+          <div class="label">От запуска Bet365 до миллиардной оценки</div>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3>Примеры успешных компаний</h3>
+        <ul>
+          <li><strong>Bet365:</strong> основана в 2000 году, текущая оценка $12+ млрд. Дениз Коутс начинала с небольшой сети магазинов ставок, онлайн-платформа запущена в 2001 году</li>
+          <li><strong>Flutter Entertainment (Paddy Power, Betfair):</strong> рыночная капитализация $27 млрд</li>
+          <li><strong>DraftKings:</strong> за 8 лет выросла до капитализации $14 млрд</li>
+          <li><strong>Pinnacle:</strong> существует с 1998 года, известна высокими коэффициентами и политикой не банить плюсовых игроков, что обеспечило лояльную аудиторию профессионалов</li>
+        </ul>
+        <p>Ключевой фактор успеха: компании, которые предлагали <strong>лучшие условия для клиентов</strong> (высокие коэффициенты, честная игра, прозрачность), завоевали рынок быстрее конкурентов.</p>
+      </div>
+    </section>
+
+    <section id="advantages">
+      <h2>Наши конкурентные преимущества</h2>
+
+      <div class="advantage-card">
+        <h3>1. Более высокие коэффициенты, чем у конкурентов</h3>
+        <p>Благодаря AI-оптимизации маржи и эффективному управлению рисками, мы работаем с маржей <strong>2-7%</strong>, что конкурентно даже с Pinnacle (2.5-8%) и значительно лучше традиционных букмекеров (5-10%). Клиент получает больше прибыли с каждой выигрышной ставки. Это ключевое конкурентное преимущество, которое привлекает опытных игроков.</p>
+      </div>
+
+      <div class="advantage-card">
+        <h3>2. Политика "No Ban" для плюсовых игроков</h3>
+        <p>В отличие от 95% букмекеров, которые ограничивают или банят выигрывающих клиентов, мы придерживаемся философии Pinnacle: <strong>мы приветствуем всех игроков</strong>. Наш AI позволяет нам корректировать линию в реальном времени, превращая плюсовых игроков из угрозы в источник ценных данных для улучшения наших алгоритмов. Это создает уникальную лояльность аудитории.</p>
+      </div>
+
+      <div class="advantage-card">
+        <h3>3. Более широкая линия, чем у Pinnacle</h3>
+        <p>Наша AI-платформа анализирует не только традиционные спортивные события, но и способна обрабатывать альтернативные рынки. С развитием технологий компьютерного зрения, мы планируем предлагать ставки на <strong>любые события</strong> — от локальных спортивных матчей до публичных споров и предсказаний, подобных Polymarket, но с более широким охватом.</p>
+      </div>
+
+      <div class="advantage-card">
+        <h3>4. AI-анализ видео в реальном времени</h3>
+        <p>В разработке система компьютерного зрения для анализа видео трансляций. Это позволит принимать ставки на события, которые не покрывают традиционные букмекеры, и автоматически верифицировать результаты. Технология открывает рынок <strong>персонализированных и локальных событий</strong>, недоступных крупным игрокам.</p>
+      </div>
+
+      <div class="advantage-card">
+        <h3>5. Модель агрегатора — масштабирование без лицензионных барьеров</h3>
+        <p>Вместо того, чтобы быть просто букмекером, мы создаем <strong>платформу для других букмекеров</strong>. Любой человек или организация может стать букмекером на нашей платформе, привлекать своих клиентов и управлять рисками. Мы предоставляем технологию, безопасность и аналитику, получая процент с оборота.</p>
+        <p><strong>Преимущество:</strong> локальные партнеры решают вопросы входа на рынки (юридические, платежные), мы не несем ответственность за деятельность в их юрисдикциях. Пример: партнер в Иране собирает средства локально (любыми способами), переводит нам евро, его клиенты играют на платформе, расчеты производим только с партнером.</p>
+        <p>Такие компании-агрегаторы (Airbnb, Uber) становятся крупнейшими в индустрии, потому что они <strong>масштабируются экспоненциально</strong> за счет сети партнеров.</p>
+      </div>
+
+      <div class="advantage-card">
+        <h3>6. Возможность агрессивного маркетинга</h3>
+        <p>Наши преимущества (высокие коэффициенты + no ban) дают мощный маркетинговый нарратив. Мы можем показывать реальные кейсы блокировок игроков конкурентами и противопоставлять нашу политику. У клиента <strong>нет рационального повода пользоваться конкурентами</strong>, если мы даем лучшую цену и не ограничиваем выигрыши.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Сравнение с конкурентами</h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Параметр</th>
+            <th>Традиционные БК</th>
+            <th>Pinnacle</th>
+            <th>Polymarket</th>
+            <th class="highlight">iBet</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Коэффициенты (маржа)</strong></td>
+            <td>5-10%</td>
+            <td>2.5-8%</td>
+            <td>Варьируется</td>
+            <td class="highlight">2-7%</td>
+          </tr>
+          <tr>
+            <td><strong>Политика блокировок</strong></td>
+            <td>Банят плюсовых</td>
+            <td>Не банят</td>
+            <td>Децентрализация</td>
+            <td class="highlight">Не банят + AI адаптация</td>
+          </tr>
+          <tr>
+            <td><strong>Широта линии</strong></td>
+            <td>Стандартная</td>
+            <td>Широкая</td>
+            <td>События + прогнозы</td>
+            <td class="highlight">Спорт + события + любые споры</td>
+          </tr>
+          <tr>
+            <td><strong>Масштабируемость</strong></td>
+            <td>Линейная</td>
+            <td>Линейная</td>
+            <td>Сетевая</td>
+            <td class="highlight">Экспоненциальная (агрегатор)</td>
+          </tr>
+          <tr>
+            <td><strong>Лицензионные барьеры</strong></td>
+            <td>Высокие</td>
+            <td>Высокие</td>
+            <td>Низкие (крипто)</td>
+            <td class="highlight">Минимальные (платформа)</td>
+          </tr>
+          <tr>
+            <td><strong>AI-технологии</strong></td>
+            <td>Базовые</td>
+            <td>Средние</td>
+            <td>Нет</td>
+            <td class="highlight">Продвинутые + видеоанализ</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="model">
+      <h2>Бизнес-модель агрегатора</h2>
+
+      <div class="content-block">
+        <h3>Как это работает</h3>
+        <p><strong>Традиционная модель:</strong> букмекер несет все риски, обязательства перед клиентами, юридические и финансовые издержки для работы в каждой стране.</p>
+        <p><strong>Модель агрегатора iBet:</strong></p>
+        <ul>
+          <li>Мы предоставляем <strong>технологическую платформу</strong> — AI, систему управления ставками, аналитику, безопасность</li>
+          <li>Партнер (локальный букмекер) привлекает клиентов в своем регионе, используя наши инструменты</li>
+          <li>Партнер самостоятельно решает вопросы приема платежей, работы с клиентами, локального соответствия законам</li>
+          <li>Расчеты ведутся только между нами и партнером, мы не взаимодействуем с конечными пользователями напрямую</li>
+          <li>Партнер платит процент с оборота или с прибыли (настраивается)</li>
+        </ul>
+      </div>
+
+      <div class="highlight-box">
+        <h3>Преимущества модели</h3>
+        <p><strong>Масштабирование:</strong> каждый новый партнер открывает новый рынок без наших капитальных затрат на лицензии, маркетинг, локальную инфраструктуру.</p>
+        <p><strong>Снижение рисков:</strong> юридические и финансовые риски распределены между партнерами. Мы — технологическая платформа, не букмекер.</p>
+        <p><strong>Доступ к любым рынкам:</strong> партнеры находят способы работать в регионах, где традиционный букмекерский бизнес невозможен (строгие законы, ограничения платежей).</p>
+      </div>
+
+      <div class="content-block">
+        <h3>Примеры аналогичных моделей</h3>
+        <ul>
+          <li><strong>Airbnb:</strong> не владеет недвижимостью, но крупнейший игрок в индустрии гостеприимства</li>
+          <li><strong>Uber:</strong> не владеет автомобилями, но крупнейший перевозчик</li>
+          <li><strong>Betfair Exchange:</strong> платформа для ставок между игроками, не букмекер — капитализация $10+ млрд</li>
+        </ul>
+        <p>Агрегаторные модели <strong>всегда выигрывают по капитализации</strong> у традиционных игроков, потому что рост не ограничен собственными ресурсами.</p>
+      </div>
+    </section>
+
+    <section id="technology">
+      <h2>Технологическое превосходство</h2>
+
+      <div class="content-block">
+        <h3>AI-система управления рисками</h3>
+        <p>В отличие от традиционных букмекеров, которые используют статические модели и ручную корректировку линий, наш AI:</p>
+        <ul>
+          <li>Анализирует поведение каждого игрока индивидуально</li>
+          <li>Адаптирует коэффициенты в реальном времени под входящий поток ставок</li>
+          <li>Использует плюсовых игроков как индикатор ценности — если профессионал ставит, это сигнал для корректировки линии</li>
+          <li>Диверсифицирует риски автоматически, перераспределяя экспозицию между событиями</li>
+        </ul>
+        <p>Это позволяет нам держать маржу на уровне 2-7% (против 5-10% у традиционных БК и конкурентно с Pinnacle 2.5-8%) при меньших рисках.</p>
+      </div>
+
+      <div class="content-block">
+        <h3>Компьютерное зрение и анализ видео — ставки на всё</h3>
+        <p>Следующий этап развития — внедрение систем компьютерного зрения для автоматического анализа видео. Это революция: <strong>ставки на любое событие с видеофиксацией</strong>.</p>
+        <p><strong>Примеры возможных рынков:</strong></p>
+        <ul>
+          <li><strong>Домашний бильярд:</strong> Вы с другом играете в пул дома, включаете трансляцию, AI следит за столом и автоматически фиксирует результат. Друзья могут делать ставки на вас прямо из другого города.</li>
+          <li><strong>Настольные игры (Уно, покер, нарды):</strong> Поставьте камеру над столом, AI распознает карты/фишки и отслеживает ход игры. Создайте рынок ставок для своих друзей за 30 секунд.</li>
+          <li><strong>Киберспорт и стримы:</strong> Любой стример может монетизировать свой контент через встроенные ставки на его действия в игре.</li>
+          <li><strong>Локальные спортивные события:</strong> Школьный турнир по футболу, любительские соревнования — AI анализирует трансляцию и принимает ставки.</li>
+          <li><strong>Публичные споры и вызовы:</strong> "Пробегу марафон за 3 часа", "Прочитаю 50 книг за год" — любое измеримое событие с видео-подтверждением.</li>
+        </ul>
+        <p>Это <strong>бесконечный рынок</strong>. AI не нужны лицензии или официальные данные — только видео. Любой пользователь становится создателем рынка ставок.</p>
+      </div>
+
+      <div class="highlight-box">
+        <h3>Сравнение с Polymarket — почему мы лучше</h3>
+        <p><strong>Polymarket</strong> — децентрализованная платформа для ставок на события и прогнозы, оценка $1.4 млрд (2024). Показала, что есть огромный спрос на ставки вне традиционного спорта. Но у них критические ограничения:</p>
+        <p><strong>Проблемы Polymarket:</strong></p>
+        <ul>
+          <li><strong>Очень ограниченный выбор:</strong> только крупные политические/экономические события, которые модераторы одобрят. Нельзя создать рынок для домашней игры в бильярд или локального турнира.</li>
+          <li><strong>Только криптовалюта:</strong> барьер входа для обычных пользователей, узкая аудитория.</li>
+          <li><strong>Нет автоматической верификации:</strong> результаты определяются голосованием или оракулами, что создает споры и задержки.</li>
+          <li><strong>Нет спорта:</strong> они не покрывают традиционный спортивный беттинг — огромный упущенный рынок.</li>
+          <li><strong>Зависимость от модерации:</strong> каждый рынок должен быть одобрен, нет масштабирования через пользователей.</li>
+        </ul>
+        <p><strong>Наши преимущества:</strong></p>
+        <ul>
+          <li><strong>Безграничный выбор:</strong> любой может создать рынок для <strong>любого события</strong> с видеофиксацией — от профессионального спорта до домашних игр.</li>
+          <li><strong>Фиат + крипто:</strong> доступ для массовой аудитории.</li>
+          <li><strong>AI-верификация:</strong> автоматическое определение результатов через компьютерное зрение, без человеческого фактора.</li>
+          <li><strong>Спорт + события:</strong> объединяем традиционный беттинг и рынок предсказаний в одной платформе.</li>
+          <li><strong>Модель агрегатора:</strong> пользователи и партнеры сами создают рынки, мы предоставляем технологию.</li>
+        </ul>
+        <p><strong>Итог:</strong> Polymarket доказал спрос на $1.4 млрд, имея узкий фокус и ограничения. Мы убираем эти ограничения и добавляем спорт — потенциал на порядок выше.</p>
+      </div>
+    </section>
+
+    <div class="cta-section">
+      <h2>Инвестиционное предложение</h2>
+      <p>
+        Мы ищем партнера для совместного запуска и масштабирования платформы. Технология готова, бизнес-модель проверена, рынок растет. Это не просто "еще одна букмекерская контора" — это технологическая платформа с потенциалом стать агрегатором индустрии.
+      </p>
+      <p>
+        У клиента нет причин пользоваться конкурентами: мы даем лучшую цену, не баним выигрывающих, предлагаем более широкую линию. У партнеров нет причин не работать с нами: мы даем технологию мирового уровня без капитальных затрат на разработку.
+      </p>
+      <a href="#contacts" class="cta-button">Обсудить партнерство</a>
+    </div>
+
+    <section id="contacts">
+      <h2>Свяжитесь с нами</h2>
+      <p style="text-align: center; max-width: 750px; margin: 0 auto 2rem; font-size: 1.05rem; color: #5f6368;">
+        Готовы предоставить подробную финансовую модель, технические спецификации и демонстрацию платформы. Все обсуждения конфиденциальны.
+      </p>
+      <form>
+        <label for="name">Имя и фамилия</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" name="phone" />
+
+        <label for="investment">Инвестиционный потенциал (приблизительно)</label>
+        <input type="text" id="investment" name="investment" />
+
+        <label for="message">Дополнительная информация</label>
+        <textarea id="message" name="message" rows="4"></textarea>
+
+        <button type="submit">Отправить заявку</button>
+      </form>
+      <div class="contact-info">
+        <p><strong>Email:</strong> partners@ibet-platform.com</p>
+        <p><strong>Telegram:</strong> @iBet_business</p>
+        <p style="margin-top: 1.5rem; font-size: 0.95rem; color: #5f6368;"><em>Конфиденциальность гарантирована. NDA предоставляется по запросу.</em></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 iBet Technology Platform. Все права защищены.</p>
+    <div class="footer-links">
+      <a href="#">Политика конфиденциальности</a>
+      <a href="#">Условия использования</a>
+    </div>
+  </footer>
+</body>
+</html>
